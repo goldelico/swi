@@ -48,7 +48,7 @@ if(manage() && $_GET['cmd'] == "approve")
 			$field=$record['field'];
 			$new=$record['newvalue'];
 		// get old value
-		$body .= "$old -> $new\n"
+		$body .= "$old -> $new\n";
 		$query="update ${DB_TABLE} set `$field`=".quote($record['newvalue'])." where id=$app";
 //			echo $query;
 		query($query);
@@ -66,7 +66,7 @@ if(manage() && $_GET['cmd'] == "approve")
 	$result=query($query);
 	while($record=mysql_fetch_array($result))
 		{
-		
+			// send mail
 		}
 }
 

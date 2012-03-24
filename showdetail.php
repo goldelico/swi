@@ -79,7 +79,16 @@ function title($row)
 
 function checklink($url)
 {
+	global ${DB_TABLE};
 //	return "";	// experimental
+
+	// we should wipe out older records so that the table does not grow infinitely
+	 $query="select * from ${DB_TABLE}_links where url=".quote($url)." limit 1";
+	 $result=query($query);
+	 $row=mysql_fetch_array($result);
+	 mysql_free_result($result);
+	 if($row && $row['timestamp'] > time()-1*24*3600)
+		return $row['result'];	// return cached result
 	
 	$parsed=parse_url($url);
 	if(!$parsed["scheme"] && !$parsed["host"] && $parsed["path"])
@@ -93,51 +102,81 @@ function checklink($url)
 //	print_r($parsed);
 	
 //	$fullpath="$parsed[scheme]://$parsed[host]$parsed[path]";
+	$result=" <font color=orange>[can't check URL]</font>";
 	if(!$parsed["host"])
-		return "";	// not valid at all
-	if((checkdnsrr($parsed["host"], "A")) != true)
-		return " <font color=orange>[host unreachable]</font>";	// host not found
-
-	$port=$parsed["port"];
-	if(!$port)
-		{
-		if($parsed['scheme'] == "https")
-			$port=443;
-		else
-			$port=80;	// default for HTTP
-		}
-	$path=$parsed["path"];
-	if(!$path)
-		$path="/";	// root
-	if($parsed["query"])
-		$path.="?".$parsed["query"];
+		return "";	// not valid at all -- don't cache
 	
-	if($parsed['scheme'] == "http")
+	if((checkdnsrr($parsed["host"], "A")) != true)
+		$result=" <font color=orange>[host unreachable]</font>";	// host not found
+	else
 		{
-		$fp=fsockopen($parsed["host"], $port, $errno, $errstr, 1.0);
-		if($fp)
+		/*
+		 
+		 $ch = curl_init ($url) ;
+		 curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1) ;
+		 // set some option to check existence only
+		 // set some option to get error status
+		 $res = curl_exec ($ch) ;
+		 curl_close ($ch) ;
+		 return ($res) ;
+		 
+		 */
+		$port=$parsed["port"];
+		if(!$port)
 			{
+			if($parsed['scheme'] == "https")
+				$port=443;
+			else
+				$port=80;	// default for HTTP
+			}
+		$path=$parsed["path"];
+		if(!$path)
+			$path="/";	// root
+		if($parsed["query"])
+			$path.="?".$parsed["query"];
+	
+		if($parsed['scheme'] == "http")
+			{
+			$fp=fsockopen($parsed["host"], $port, $errno, $errstr, 1.0);
+			if($fp)
+				{
+				stream_set_timeout($fp, 2.0);
 //			if($path[0] == "/")
 //				$path=substr($path, 1);
 		
 //			echo " GET $path HTTP/1.1\n\n";
-			
-			fputs($fp,"HEAD $path HTTP/1.1\nHost: ".$parsed['host']."\n\n");	// ask for header only (large files!)
-			$lines=fgets($fp, 1024);	// get first line(s)
+			// FIXME: this does not work for https
+				// we may need to do a curl call
+				fputs($fp,"HEAD $path HTTP/1.1\nHost: ".$parsed['host']."\n\n");	// ask for header only (large files!)
+				$lines=fgets($fp, 1024);	// get first line(s)
 		
 //			echo $lines;
 			
-			strtok($lines, " ");	// HTTP...
-			$code=strtok(" ");
-			$message=trim(strtok("\n"));
-			if($code == 200)
-				return " <font color=green>[$code $message]</font>";
+				strtok($lines, " ");	// HTTP...
+				$code=strtok(" ");
+				$message=trim(strtok("\n"));
+				if($code == 200)
+					$result=" <font color=green>[$code $message]</font>";
 			// handle server redirect!
-			return " <font color=red>[$code $message]</font>";	// path not found
+				else if($message)
+					$result=" <font color=red>[$code $message]</font>";	// path not found
+				else
+					$result=" <font color=orange>[no response]</font>";
+				fclose($fp);
+				}
+			else
+				$result=" <font color=orange>[no connection]</font>";
 			}
-		return " <font color=orange>[no response]</font>";
+		
 		}
-	return " <font color=orange>[can't check URL]</font>";
+	if($row)
+		$query="update ${DB_TABLE}_links set timestamp=".quote(time()).", result=".quote($result)." where url=".quote($url);
+	else
+		$query="insert into ${DB_TABLE}_links set timestamp=".quote(time()).", result=".quote($result).", url=".quote($url);
+	echo $query;
+	query($query);
+
+	return $result;
 }
 
 function field($row, $title, $field, $right="", $left="")
@@ -265,9 +304,7 @@ function commands($id)
 			echo " <a href=\"showchanges.php?app=$id\"?>pending changes</a> | ";
 		}
 		mysql_free_result($result);
-		?>
-<!--						  <a href="checklinks.php?app=<?php echo $id;?>">check links</a> | -->
-		<?php
+
 		if(isloggedin())
 		{
 			$query="select * from ${DB_TABLE}_subscription where appid=$id and email=".quote(loginname());

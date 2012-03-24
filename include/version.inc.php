@@ -1,3 +1,3 @@
 <?php
-	$VERSION='<a href="http://www.quantum-step.com">SWI 2.9.0</a>';
+	$VERSION='<a href="http://projects.goldelico.com/p/swi/">SWI 2.9.1</a>';
 ?>

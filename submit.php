@@ -281,7 +281,7 @@ else
         <TR>
 		<TD vAlign=top><B>Note:</B> </TD>
 		<TD><B>Stop submitting anything that is not related to 
-		GNUstep in any way. It will be deleted.</B>
+		this topic in any way. It will be deleted.</B>
 		
 		</TD></TR>
         <TR>
