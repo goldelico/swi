@@ -1,36 +1,47 @@
 <?php
-
-include "include/version.inc.php";
-
-// load machine specific configuration
-
+	
+	include "include/version.inc.php";
+	
+	
 	global $ROM_VARIANTS;
 	global $MODEL_VARIANTS;
+	global $LICENSE_MENU;
+	global $CATEGORY_MENU;
 
-require "config/".$_SERVER['SERVER_NAME']."-".$_SERVER['SERVER_PORT'].".php";
+	// load machine specific configuration
 
+	require "config/".$_SERVER['SERVER_NAME']."-".$_SERVER['SERVER_PORT'].".php";
+	
+	// set defaults
+	
 	if(!$ROM_VARIANTS)
-		$ROM_VARIANTS=array("Any",
-								 "---",
-								 "Sharp ROM",
-								 "Cacko", 
-								 "pdaXrom", 
-								 "Open Zaurus",
-								 "QuantumSTEP",
-								 "MacOS X",
-								 "Linux x86", 
-								 "Other",
-								 );
+		$ROM_VARIANTS=array("Any");
 	
 	if(!$MODEL_VARIANTS)
-		$MODEL_VARIANTS=array("Any",
-												"---",
-												"SL5x00",
-												"C7x0", 
-												"C860", 
-												"C1000",
-												"C3000",
-												"SL6000",
-												);
-
-?>
+		$MODEL_VARIANTS=array("Any");
+	
+	if(!$CATEGORIES_MENU)
+		$CATEGORIES_MENU=array("Application",
+						   "Commercial",
+						   "Developer Tool",
+						   "Distribution",
+						   "Framework",
+						   "Game",
+						   "Preference",
+						   "System Tool",
+						   "Tool"
+						   );
+	
+	if(!$LICENSE_MENU)
+		$LICENSE_MENU=array("none/unknown",
+						"GPL",
+						"LGPL", 
+						"BSD", 
+						"X11",
+						"Commercial",
+						"Shareware", 
+						"Public", 
+						"Other"
+						);
+	
+	?>

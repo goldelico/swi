@@ -110,12 +110,24 @@ function getscreenshots($id)
 
 function requestchange($app, $field, $value="", $reason="")
 { // queue change request
-	global $DB_TABLE;
+	global $DB_TABLE, $TITLE, $URL;
 	$result=query("select max(number) as next from ${DB_TABLE}_changerequest");
 	$row=mysql_fetch_array($result);
 	$next=$row['next']+1;
 	mysql_free_result($result);
 	query("insert into ${DB_TABLE}_changerequest (number, `when`, appid, field, newvalue, requestor, reason) values ($next, now(), $app, ".quote($field).", ".quote($value).", ".quote(loginname()).", ".quote($reason).")");
+	// FIXME: collect change rquests and/or use a timer to send all existing CR in a single mail - e.g. daily or store the last sent date in the DB
+	$subject="New SWI change request for $TITLE";
+	$body="$app, $field, -> $value, $reason <$URL/showchanges?app=$app&change=$next&field=$field>";
+	$query="select * from ${DB_TABLE}_users where permissions like '%manage%' and enabled=1";
+//	$query="select * from ${DB_TABLE}_users";
+	$result=query($query);
+	while($row=mysql_fetch_array($result))
+		{ // notify all managers
+//			echo $row['email']." -- ".$row['permissions']." -- $subject -- $body<br>";
+		sendmail($row['email'], $subject, $body);
+		}
+	mysql_free_result($result);
 }
 
 include "include/header2.inc.php";

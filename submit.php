@@ -340,16 +340,7 @@ else
 					<TD>License</TD>
 					<TD>
 					<?php 
-					selectionlist("license", array("none/unknown",
-												   "GPL",
-												   "LGPL", 
-												   "BSD", 
-												   "X11",
-												   "Commercial",
-												   "Shareware", 
-												   "Public", 
-												   "Other"
-												   ), $row['license']);
+					selectionlist("license", $LICENSE_MENU, $row['license']);
 				?>
 					</TD>
 					</TR>
@@ -362,12 +353,7 @@ else
 					<TD>Operating system</TD>
 					<td>
 					<?php 
-					selectionlist("rom", array("Any",
-											   "Linux",
-												   "Windows", 
-												   "Darwin", 
-													"Other",
-											   ), $row['rom']);
+					selectionlist("rom", $ROM_VARIANTS, $row['rom']);
 					?>
 					</td>
 					</tr>

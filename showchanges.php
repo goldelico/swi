@@ -67,6 +67,8 @@ if(manage() && $_GET['cmd'] == "approve")
 	while($record=mysql_fetch_array($result))
 		{
 			// send mail
+		// echo $row['email']." -- $subject -- $body<br>";
+		// sendmail($record['email'], $subject, $body);
 		}
 }
 
@@ -212,17 +214,18 @@ while($row=mysql_fetch_array($result))
 			}
 		else
 			echo ": delete";
+		echo "<br>\n";
 		}
 	if($row['upd'])
 		{
-		echo " (".htmlentities($row['upd'])." - ";
+		echo "By: ".htmlentities($row['upd'])." - ";
 		if($row['requestor'])
 			echo htmlentities($row['requestor']);
 		else
 			echo "guest";
 		if($row['reason'])
 			echo " - ".htmlentities($row['reason']);
-		echo ")";
+		echo "<br>\n";
 		}
 	if(manage())
 		{

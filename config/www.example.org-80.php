@@ -54,4 +54,14 @@ $HINT="<a href=\"http://wiki.$HOST\">Example Wiki</a>";
 						   "Tool"
 						  );
 	
+	$LICENSE_MENU=array("none/unknown",
+		  "GPL",
+		  "LGPL", 
+		  "BSD", 
+		  "X11",
+		  "Commercial",
+		  "Shareware", 
+		  "Public", 
+		  "Other"
+		  );
 ?>

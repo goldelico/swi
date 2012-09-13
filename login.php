@@ -126,17 +126,6 @@ if($_GET['cmd'] == "login" && $_POST['email'] && $_POST['passcode'])
 
 		include "include/footer.inc.php";
 		
-		// remove after being successful once
-		
-		$query="CREATE TABLE IF NOT EXISTS `swi_gs_links` (
-		`url` text NOT NULL,
-		`timestamp` int(11) NOT NULL,
-		`result` text NOT NULL
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
-		$result=query($query);
-		echo "database created";
-		echo " $result";
-		
 		exit;
 		}
 }

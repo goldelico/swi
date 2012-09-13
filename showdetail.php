@@ -79,7 +79,7 @@ function title($row)
 
 function checklink($url)
 {
-	global ${DB_TABLE};
+	global $DB_TABLE;
 //	return "";	// experimental
 
 	// we should wipe out older records so that the table does not grow infinitely
@@ -173,7 +173,7 @@ function checklink($url)
 		$query="update ${DB_TABLE}_links set timestamp=".quote(time()).", result=".quote($result)." where url=".quote($url);
 	else
 		$query="insert into ${DB_TABLE}_links set timestamp=".quote(time()).", result=".quote($result).", url=".quote($url);
-	echo $query;
+//	echo $query;
 	query($query);
 
 	return $result;
@@ -252,8 +252,8 @@ function details($id, $row)
 											echo "</a>";
 											$first=false;
 										}
-									if(!first)
-										; // no category specified...
+										if(!$first)
+											; // no category specified...
 									?>
 										</td>
 										</tr>
@@ -278,7 +278,7 @@ function description($id, $row)
 			<?php 
 				echo htmlentities($row['summary']);
 			if($row['author'])
-				echo " - by ".htmlentities($row['author']);
+				echo " - by "."<a href=\"search.php?q=".rawurlencode($row['author'])."\">".htmlentities($row['author'])."<a>";
 			?>
 			</td>
 		</tr>
