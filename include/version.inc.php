@@ -1,3 +1,3 @@
 <?php
-	$VERSION='<a href="http://projects.goldelico.com/p/swi/">SWI 2.9.4</a>';
+	$VERSION='<a href="http://projects.goldelico.com/p/swi/">SWI 2.9.5</a>';
 ?>

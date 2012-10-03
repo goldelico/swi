@@ -118,7 +118,7 @@ function requestchange($app, $field, $value="", $reason="")
 	query("insert into ${DB_TABLE}_changerequest (number, `when`, appid, field, newvalue, requestor, reason) values ($next, now(), $app, ".quote($field).", ".quote($value).", ".quote(loginname()).", ".quote($reason).")");
 	// FIXME: collect change rquests and/or use a timer to send all existing CR in a single mail - e.g. daily or store the last sent date in the DB
 	$subject="New SWI change request for $TITLE";
-	$body="$app, $field, -> $value, $reason <$URL/showchanges?app=$app&change=$next&field=$field>";
+	$body="$app, $field, -> $value, $reason <$URL/showchanges.php?app=$app&change=$next&field=$field>";
 	$query="select * from ${DB_TABLE}_users where permissions like '%manage%' and enabled=1";
 //	$query="select * from ${DB_TABLE}_users";
 	$result=query($query);

@@ -218,7 +218,7 @@ while($row=mysql_fetch_array($result))
 		}
 	if($row['upd'])
 		{
-		echo "By: ".htmlentities($row['upd'])." - ";
+		echo " By: ".htmlentities($row['upd'])." - ";
 		if($row['requestor'])
 			echo htmlentities($row['requestor']);
 		else
