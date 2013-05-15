@@ -237,7 +237,6 @@ if($_POST['change'] == "ignore")
 				}
 			if(($_POST['baseid']+0) != 0)
 				{
-//				requestchange(($_POST['baseid']+0), 'replacedby', $id, "new version requested");
 				echo "<b>New version queued for approval.</b>\n";
 				}
 			else

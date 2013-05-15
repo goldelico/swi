@@ -60,8 +60,6 @@ function title($row)
 						else
 							echo " <font color=\"red\">updates available</font>";	// current is not first
 					}
-//				if($row['replacedby'])
-//					echo " <a href=showdetail.php?app=".$row['replacedby']."><font color=\"red\">update available</font></a>";
 				?>
 			</span>
 	</td>
@@ -533,7 +531,6 @@ else if($_GET['cmd'] == "disapprove-ok")
 	else
 		{
 		requestchange($id, 'approved', 0, $_POST['comment']);
-		// search all entries which point to us with a replacedby record and request its removal or replace it by our own replacedby value
 		echo "<b>Disapproval requested.</b>";
 		}
 }

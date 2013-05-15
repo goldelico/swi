@@ -57,8 +57,7 @@ if(manage() && $_GET['cmd'] == "approve")
 		// if($field is like "screen$d" && newvalue == 0)
 		//   $number="select screen$d from ${DB_TABLE} where appid=$app";
 		//   delete file(function getscreenshot($app, $number))
-//		if($field != "replacedby")
-			query("update ${DB_TABLE} set updated=now() where id=$app");
+		query("update ${DB_TABLE} set updated=now() where id=$app");
 		}
 	// notify all subscribers of this app
 	mysql_free_result($result);
