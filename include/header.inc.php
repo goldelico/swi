@@ -130,6 +130,11 @@ function requestchange($app, $field, $value="", $reason="")
 	mysql_free_result($result);
 }
 
+function imagecode($number)
+	{
+	return md5("iws".$number."image");
+	}
+	
 include "include/header2.inc.php";
 
 ?>

@@ -16,11 +16,6 @@ $body.="SERVER:\n"; foreach ($_SERVER as $key => $value) $body.="$key => $value\
 mail("hns@dsitri.de", "submit.php access from ".$_SERVER['REMOTE_ADDR'], $body, "hns@dsitri.de");
 }
 
-function imagecode($number)
-{
-	return md5("iws".$number."image");
-}
-
 if($_POST['change'] == "ignore")
 { // store
 	$id=($_POST['baseid']+0);
