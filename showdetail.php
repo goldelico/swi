@@ -536,7 +536,7 @@ else if($_GET['cmd'] == "disapprove-ok")
 }
 else if(manage() && $_GET['cmd'] == "approve")
 {
-	requestchange($id, 'approved', 0);
+	requestchange($id, 'approved', 1, $_POST['comment']);
 	echo "<b>Approval requested.</b>";
 }
 else if(isloggedin() && $_GET['cmd'] == "subscribe")

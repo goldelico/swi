@@ -117,6 +117,7 @@ if($_POST['change'] == "ignore")
 				else if($_POST["delete$num"] == "on")
 					requestchange($id, "screen$num", 0, $_POST['reason']);
 				}
+			requestchange($id, 'approved', 1, $_POST['reason']);
 			echo "<b>Change requests queued for review and approval.</b>\n";
 			if(manage())
 				echo "<a href=\"showchanges.php?app=$id\">Approve</a>\n";

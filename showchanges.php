@@ -155,14 +155,14 @@ if(manage() && $app)
 	echo " $c <a href='showchanges.php?";
 	echo "change=all";
 	echo "&app=".rawurlencode($app);
-	echo "&cmd=approve";
-	echo "'>";
+	echo "&cmd=approve'";
+	echo " onclick=\"return confirm('are you sure to approve all changes?')\">";
 	echo "Approve latest</a>";
 	echo " | <a href='showchanges.php?";
 	echo "change=all";
 	echo "&app=".rawurlencode($app);
-	echo "&cmd=reject";
-	echo "'>";
+	echo "&cmd=reject'";
+	echo " onclick=\"return confirm('are you sure to reject all?')\">";
 	echo "Reject all</a>";
 	$c="|";
 }
@@ -232,15 +232,15 @@ while($row=mysql_fetch_array($result))
 		echo "change=".rawurlencode($row['number']);
 		echo "&app=".rawurlencode($row['appid']);
 		echo "&field=".rawurlencode($row['field']);
-		echo "&cmd=approve";
-		echo "'>";
+		echo "&cmd=approve'";
+		echo " onclick=\"return confirm('are you sure to approve this change?')\">";
 		echo "Approve</a>";
 		echo " | <a href='showchanges.php?";
 		echo "change=".rawurlencode($row['number']);
 		echo "&app=".rawurlencode($row['appid']);
 		echo "&field=".rawurlencode($row['field']);
-		echo "&cmd=reject";
-		echo "'>";
+		echo "&cmd=reject'";
+		echo " onclick=\"return confirm('are you sure to reject this change?')\">";
 		echo "Reject</a> ]";
 		}
 	echo "<br>\n";
