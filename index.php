@@ -15,10 +15,11 @@ $query.=" order by updated desc";
 if($_GET['count'] != 0)
 	$query.=" limit ".($_GET['count']+0);
 else
-	$query.=" limit 30";
+	$query.=" limit 32";
 
 listapps($query, "<b>Latest changes/additions:</b>
-(Last 
+(<a href=\"index.php?count=grid\">Grid</a> |
+ Last 
  <a href=\"index.php?count=25\">25</a> |
  <a href=\"index.php?count=50\">50</a> |
  <a href=\"index.php?count=100\">100</a>)", true);
