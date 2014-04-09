@@ -18,7 +18,7 @@ else
 	$query.=" limit 32";
 
 listapps($query, "<b>Latest changes/additions:</b>
-(<a href=\"index.php?count=grid\">Grid</a> |
+(<a href=\"index.php?grid=grid\">Grid</a> |
  Last 
  <a href=\"index.php?count=25\">25</a> |
  <a href=\"index.php?count=50\">50</a> |
