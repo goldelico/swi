@@ -1,0 +1,84 @@
+-----------------
+
+Configuration
+
+create a subdirectory 'config*
+
+create a file called www.address-port.php (e.g. 'www.gnustep.org-80.php') 
+
+Copy and adapt this scheme:
+
+<?php
+
+$SERVER="softwareindex";	// link where SWI resides on the host server
+
+// database connection
+
+$DB_HOST="mysql.somewhere.yourserver.abc";
+$DB_DATABASE="gnustep";	// the database name
+$DB_USER="username";
+$DB_PASSWORD="database password";
+$DB_TABLE="database table";
+
+// general config
+
+$URL="http://www.gnustep.org/softwareindex";		// URL where SWI resides
+$TITLE="GNUstep Software Index";		// the TITLE
+$FROM="swi@gnustep.org";				// where mails originate
+$MAIN="<h1><img src=\"http://www.gnustep.org/images/AlternateGNUstepLogo.png\"><br/>Software<br/>Index</h1>";
+$CONTENT="<b>The GNUstep Software Index</b>";
+$KEYWORDS="GNUstep";
+
+$MAX_FILE_SIZE=100*1024;
+
+// bottom line
+
+$CONTACT="Comments: <a href=\"mailto:$FROM\">$FROM</a>";
+$IMPRESSUM="<a href=\"http://www.gnustep.org/index.html\">GNUstep Home</a>";
+$HINT="<a href=\"http://wiki.gnustep.org\">GNUstep Wiki</a>";
+
+?>
+
+
+-----------------
+
+Now became GNUstep Software Index
+
+The project has been put under GPL by the Author (Dr. Nikolaus Schaller) and donated to the GNUstep project.
+
+-----------------
+
+Late Xmas present by The Handheld-Linux Shop to the Zaurus Community
+
+New Software Index to revitalize Killefiz
+
+Dear all,
+
+as you know the www.Killefiz.de/zaurus database is still running but no longer maintained since October. But the latest information and its raw data can be downloaded.
+
+Therefore, we have written a new front-end for a Killefiz-like database and added some features, so that we hope that it gets revitalized and gains again better adoption.
+
+We have
+* used the original page layout because we find that it is clean, neat and not overloaded with unneccessary information
+* added an RSS feed
+* added a mechanism for multiple managers/moderators (so that it not again becomes the burden of a single person)
+* added a login-mechanism to allow
+  - to subscribe to packages (i.e. e-mail notifications for updates)
+  - for multiple management accounts (where you can help to approve/reject change requests)
+  - to add comments (not yet finished)
+
+Unfortunately, we do not have the list of pending change requests, so the backlog of Killefiz is not included. And, we have not found a way to import the raw ELSIX database - so there will unfortunately be some outdated information. If you know how to get that data, we could try to work it in.
+
+So, please use the Software Index, search it, submit new applications and change requests, apply for becoming a manager, make the link known to everybody, report bugs and make suggestions for improvement, etc.
+
+And finally, this is a free service to anybody and is not thought to be a replacement of ELSIX.
+
+Here you can find it: http://www.handheld-linux.com/swi/index.php
+
+With kind regards,
+Nikolaus Schaller
+
+The Handheld-Linux Shop
+
+--- CHANGES ---
+2009-04-19 added iso-8859-1 as charset= and accept-charset=
